@@ -6,7 +6,7 @@
 // @include        https://www.reddit.com/*
 // @include        http://reddit.com/*
 // @include        https://reddit.com/*
-// @version        1.0.0
+// @version        1.0.1
 // ==/UserScript==
 
 (function() {
