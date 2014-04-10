@@ -1,6 +1,8 @@
-Reddit+
+Better Reddit
 ==========
 
-Chrome extension to enhance your reddit experience
+Layout enhancements for Reddit using a card and content-first layout
 
-This is a work in progress. Nothing to see for now.
+Available on:
+
+* [UserScripts.org](http://userscripts.org/scripts/show/459274)
