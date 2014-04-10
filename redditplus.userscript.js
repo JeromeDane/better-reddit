@@ -96,7 +96,7 @@
 		var theme = themes[config.themeName];
 		$('body').css(theme.body);
 		$('#siteTable > .thing').css(theme.postItem);
-		$('#siteTable > .thing .title a.title').css(theme.postLink);
+		$('#siteTable > .thing a.title').css(theme.postLink);
 	}
 	
 	function init() {
