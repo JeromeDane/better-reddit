@@ -6,7 +6,7 @@
 // @include        https://www.reddit.com/*
 // @include        http://reddit.com/*
 // @include        https://reddit.com/*
-// @version        1.0.1
+// @version        1.1.0
 // ==/UserScript==
 
 (function() {
@@ -55,18 +55,23 @@
 		}
 	};
 	
+	function s(text) {
+		text = text || '';
+		return $('.listing-page #siteTable ' + text + ', .search-page #siteTable ' + text);
+	}
+	
 	function applyLayout() {
 		// hide annoying domain link that's always ("self") or whatever
-		$('.listing-page #siteTable > .thing .title .domain').hide();
+		s('> .thing .title .domain').hide();
 		// hide clearleft divs to allow for inline block display  
-		$('.listing-page #siteTable > .clearleft').remove();
-		$('.listing-page #siteTable > .thing > .clearleft').remove();
-		$('.listing-page #siteTable > .thing .expando').remove();
+		s('> .clearleft').remove();
+		s('> .thing > .clearleft').remove();
+		s('> .thing .expando').remove();
 		
-		$('.listing-page #siteTable > .thing').css({
+		s('> .thing').css({
 			height: 'auto'
 		});
-		$('.listing-page #siteTable > .thing .title').css({
+		s('> .thing .title').css({
 			display: 'block',
 			padding: '10px',
 			'margin-right': '45px'
@@ -110,7 +115,7 @@
 		if(windowWidth <= 1300)
 			numColumns = 2;
 	
-		return ($('.listing-page #siteTable').width() - (numColumns * config.gutter) - 30 ) / numColumns;
+		return (s().width() - (numColumns * config.gutter) - 30 ) / numColumns;
 	}
 	
 	function getImageUrlFromItemResult(html, $item) {
@@ -127,9 +132,9 @@
 				return false;
 				
 			// imgur
-			matches = html.match(/https?:\/\/(www.)?imgur.com\/(\w+)\b/);
+			matches = html.match(/https?:\/\/((www|i).)?imgur.com\/(\w+)\b/);
 			if(matches) {
-				return 'http://i.imgur.com/' + matches[2] + '.png';
+				return 'http://i.imgur.com/' + matches[3] + '.png';
 				
 			}
 				
@@ -229,7 +234,7 @@
 	}
 	
 	function processItems() {
-		$('.listing-page #siteTable > .thing').each(function() {
+		s('> .thing').each(function() {
 			var $item = $(this);
 			if(!$item.attr('class').match(/redditplus/)) {
 				$item.addClass('redditplus');
@@ -242,20 +247,20 @@
 	
 	function resize() {
 		
-		$('.listing-page #siteTable').css({
+		s().css({
 			position:'relative',
-			width: $(window).width() - $('.listing-page > .side').width() - 20,
+			width: $(window).width() - $('.side').width() - $('.listing-chooser').width() - 20,
 			float: 'left'
 		});
 		
 		// restyle items
-		$('.listing-page #siteTable > .thing').css({
+		s('> .thing').css({
 			width: getColumnWidth() + 'px',
 			margin: '0',
 			position: 'absolute'
 		});
 		
-		$('.listing-page #siteTable').shapeshift({
+		s().shapeshift({
 	        enableDrag: false,
 	        align: "left",
 	        colWidth: getColumnWidth(),
@@ -266,9 +271,9 @@
 		});
 		
 		
-		$('.listing-page #siteTable .nav-buttons').css({
+		s('.nav-buttons').css({
 			position:'absolute',
-			top:($('.listing-page #siteTable > .thing').last().position().top + $('.listing-page #siteTable > .thing').last().height() + 40) + 'px',
+			top:(s('> .thing').last().position().top + s('> .thing').last().height() + 40) + 'px',
 			right:0,
 			'padding':'0 40px 40px 0',
 			'text-align':'right'
