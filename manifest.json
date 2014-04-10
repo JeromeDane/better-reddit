@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Better Reddit",
-	"description": "Layout enhancements for Reddit using a card and content-first layout",
+	"description": "Enhancements for Reddit with a dark card layout",
 	"version": "1.0.1",
 	
 	"permissions": [
@@ -20,5 +20,10 @@
 			],
 			"js": ["injector.js"]
 		}
-	]
+	],
+	"icons": { 
+		"16": "icon-16.png",
+		"48": "icon-48.png",
+		"128": "icon-128.png"
+	}
 }	
