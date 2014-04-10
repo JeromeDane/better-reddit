@@ -62,7 +62,6 @@
 		$('.listing-page #siteTable > .clearleft').remove();
 		$('.listing-page #siteTable > .thing > .clearleft').remove();
 		$('.listing-page #siteTable > .thing .expando').remove();
-		$('.listing-page #siteTable .nav-buttons').remove();
 		
 		$('.listing-page #siteTable > .thing').css({
 			height: 'auto'
@@ -246,6 +245,7 @@
 		$('.listing-page #siteTable').css({
 			position:'relative',
 			width: $(window).width() - $('.listing-page > .side').width() - 20,
+			float: 'left'
 		});
 		
 		// restyle items
@@ -261,8 +261,17 @@
 	        colWidth: getColumnWidth(),
 	        gutterX: config.gutter,
 	        gutterY: config.gutter,
-	        autoHeight: true,
+	        autoHeight: false,
 	        maxHeight: 600
+		});
+		
+		
+		$('.listing-page #siteTable .nav-buttons').css({
+			position:'absolute',
+			top:($('.listing-page #siteTable > .thing').last().position().top + $('.listing-page #siteTable > .thing').last().height() + 40) + 'px',
+			right:0,
+			'padding':'0 40px 40px 0',
+			'text-align':'right'
 		});
 		
 	}
