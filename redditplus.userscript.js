@@ -13,14 +13,9 @@
 
 	var config = {
 		gutter: 10,
-		theme: 'dark'
+		theme: 'dark',
+		isFitWidth: true
 	};
-	
-	var msnry = new Masonry(document.querySelector('#siteTable'), {
-		itemSelector: '.thing',
-		gutter: config.gutter
-	});
-	
 	
 	function s(text) {
 		text = text || '';
@@ -120,11 +115,15 @@
 		});
 	}
 	
-	function processItem($item, result) {
+	function processItem($item, i, result) {
+		
+		// ignore the first "fake" item that prevents layout borking
+		
 		var $result = $(result);
 		
 		$item.css({
 			width: getColumnWidth() + 'px',
+			'margin-bottom': i == 0 ? 0 : config.gutter,
 			position: 'absolute'
 		});
 		
@@ -191,7 +190,7 @@
 		
 		$('.hide-button', $item).click(function() {
 			setTimeout(function() {
-				msnry.layout();
+				resize();
 			}, 500);
 		});
 		
@@ -202,15 +201,15 @@
 	}
 	
 	function processItems() {
-		s('> .thing').each(function() {
+		s('> .thing').each(function(i) {
 			var $item = $(this);
 			if(!$item.attr('class').match(/redditplus/)) {
 				$item.addClass('redditplus');
 				getItemContents($item, function(result) {
-					processItem($item, result);
+					processItem($item, i, result);
 				});
 			} else {
-				processItem($item);
+				processItem($item, i);
 			}
 		});
 		
@@ -228,11 +227,19 @@
 		
 		processItems();
 		
+		var msnry = new Masonry(document.querySelector('#siteTable'), {
+			itemSelector: '.thing',
+			gutter: config.gutter
+		});
 		msnry.layout();
 		
 	}
 
 	function init() {
+		
+		// inject hidden item to prevent layout borking on removing first item
+		$('#siteTable').prepend('<div class="thing" style="height:1px; margin: 0;"></div>');
+		
 		applyTheme();
 		resize();
 		$(window).resize(resize);
