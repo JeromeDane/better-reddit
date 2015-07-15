@@ -70,14 +70,13 @@
 	
 	function getColumnWidth() {
 		var windowWidth = $(window).width() - $('div.side').width();
-		console.log(s().width(), $('div.side').width(), windowWidth);
 		var numColumns = 3;
 		if(s().width() <= 1620)
 			numColumns = 3;
 		if(s().width() <= 1300)
 			numColumns = 2;
 	
-		var finalWidth = (windowWidth - (numColumns * config.gutter) - 30 ) / numColumns;
+		var finalWidth = (windowWidth - (numColumns * config.gutter) - 30 ) / numColumns - 5;
 		return finalWidth;
 	}
 	
@@ -126,10 +125,6 @@
 		
 		$item.css({
 			width: getColumnWidth() + 'px',
-		/*
-			margin: '0',
-			'margin-bottom':config.gutter + 'px',
-		*/
 			position: 'absolute'
 		});
 		
