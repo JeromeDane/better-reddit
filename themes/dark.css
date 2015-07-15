@@ -16,8 +16,10 @@ body {
 #siteTable > .thing a.title {
 	color: #fff !important;
 }
-.md {
+.md,
+.link .usertext-body .md {
 	color: #eee;
+	background: #111;
 }
 .domain { 
 	color: #ccc;

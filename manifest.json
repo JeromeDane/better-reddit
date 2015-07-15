@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Better Reddit",
 	"description": "Enhancements for Reddit with a dark card layout",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	
 	"permissions": [
 		"https://*.reddit.com/"
