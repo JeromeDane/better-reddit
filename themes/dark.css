@@ -1,0 +1,27 @@
+body {
+	background: #333;
+	color: #eee;
+}
+
+/* post item */
+#siteTable > .thing {
+	background: #111;
+	border: none;
+	color: #eee
+}
+#siteTable .link.last-clicked {
+	background: #222;
+}
+#siteTable > .thing a.title {
+	color: #fff !important;
+}
+.md {
+	color: #eee;
+}
+.domain { 
+	color: #ccc;
+}
+.commentarea>.sitetable,
+.panestack-title, .commentarea .menuarea, .commentarea>form.usertext {
+	background: #111;
+}

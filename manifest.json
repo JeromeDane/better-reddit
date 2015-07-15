@@ -10,6 +10,9 @@
 	"background": {
 		"scripts": ["background.js"]
 	},
+	"web_accessible_resources": [
+		"themes/dark.css"
+	],
 	"content_scripts": [
 		{
 			"matches": [

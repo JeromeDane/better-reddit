@@ -13,23 +13,9 @@
 
 	var config = {
 		gutter: 10,
-		themeName: 'dark'
+		theme: 'dark'
 	};
 	
-	var themes = {
-		dark: {
-			body: {
-				background: '#333'
-			},
-			postLink: {
-				color: '#fff !important',
-			},
-			postItem: {
-				background: '#111',
-				border: 'none'
-			}
-		}
-	};
 	
 	function s(text) {
 		text = text || '';
@@ -38,7 +24,7 @@
 	
 	function applyLayout() {
 		// hide annoying domain link that's always ("self") or whatever
-		s('> .thing .title .domain').hide();
+		//s('> .thing .title .domain').parent().hide();
 		// hide clearleft divs to allow for inline block display  
 		s('> .clearleft').remove();
 		s('> .thing > .clearleft').remove();
@@ -47,7 +33,7 @@
 		s('> .thing').css({
 			height: 'auto'
 		});
-		s('> .thing .title').css({
+		s('> .thing a.title').css({
 			display: 'block',
 			padding: '10px',
 			'margin-right': '45px'
@@ -69,10 +55,9 @@
 		});
 	}
 	function applyTheme() {
-		var theme = themes[config.themeName];
-		$('body').css(theme.body);
-		$('#siteTable > .thing').css(theme.postItem);
-		$('#siteTable > .thing a.title').css(theme.postLink);
+		if(config.theme && config.theme != 'none') {
+			$('head').append('<link rel="stylesheet" href="' + chrome.extension.getURL('themes') + '/' + config.theme + '.css?d=' + (new Date()).getTime() + '" type="text/css" />')
+		}
 	}
 	
 	function getColumnWidth() {
@@ -132,7 +117,6 @@
 		var $result = $(result);
 		
 		$item.css({
-			border:'1px solid red',
 			width: getColumnWidth() + 'px',
 			margin: '0',
 			'margin-bottom':config.gutter + 'px',
@@ -204,7 +188,6 @@
 			}, 500);
 		});
 		
-		applyTheme();	
 		applyLayout();	
 		
 		resize();
