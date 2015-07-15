@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Better Reddit",
 	"description": "Enhancements for Reddit with a dark card layout",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	
 	"permissions": [
 		"https://*.reddit.com/"
@@ -26,4 +26,4 @@
 		"48": "icon-48.png",
 		"128": "icon-128.png"
 	}
-}	
+}
