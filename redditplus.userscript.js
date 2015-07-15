@@ -16,6 +16,11 @@
 		theme: 'dark'
 	};
 	
+	var msnry = new Masonry(document.querySelector('#siteTable'), {
+		itemSelector: '.thing',
+		gutter: config.gutter
+	});
+	
 	
 	function s(text) {
 		text = text || '';
@@ -58,18 +63,21 @@
 		if(config.theme && config.theme != 'none') {
 			$('head').append('<link rel="stylesheet" href="' + chrome.extension.getURL('themes') + '/' + config.theme + '.css?d=' + (new Date()).getTime() + '" type="text/css" />')
 		}
+		
+		// fix sidebar margin
+		$('#siteTable').css('margin-right', $('div.side').width() + 10);
 	}
 	
 	function getColumnWidth() {
-		var windowWidth = $(window).width();
-		console.log(windowWidth);
+		var windowWidth = $(window).width() - $('div.side').width();
+		console.log(s().width(), $('div.side').width(), windowWidth);
 		var numColumns = 3;
-		if(windowWidth <= 1620)
+		if(s().width() <= 1620)
 			numColumns = 3;
-		if(windowWidth <= 1300)
+		if(s().width() <= 1300)
 			numColumns = 2;
 	
-		var finalWidth = (s().width() - (numColumns * config.gutter) - 30 ) / numColumns;
+		var finalWidth = (windowWidth - (numColumns * config.gutter) - 30 ) / numColumns;
 		return finalWidth;
 	}
 	
@@ -118,10 +126,14 @@
 		
 		$item.css({
 			width: getColumnWidth() + 'px',
+		/*
 			margin: '0',
 			'margin-bottom':config.gutter + 'px',
-			//position: 'absolute'
+		*/
+			position: 'absolute'
 		});
+		
+		if(!result) return;
 		
 		// body
 		var postBodyHtml = $result.find('.link .usertext-body').html();
@@ -202,20 +214,15 @@
 				getItemContents($item, function(result) {
 					processItem($item, result);
 				});
+			} else {
+				processItem($item);
 			}
 		});
+		
 	}
 	
 	function resize() {
 		
-		/*
-		s().css({
-			position:'relative',
-			width: $(window).width() - $('.side').width() - $('.listing-chooser').width() - 20,
-			float: 'left'
-		});
-		
-		*/
 		s('.nav-buttons').css({
 			position:'absolute',
 			top:(s('> .thing').last().position().top + s('> .thing').last().height() + 40) + 'px',
@@ -224,24 +231,16 @@
 			'text-align':'right'
 		});
 		
+		processItems();
+		
 		msnry.layout();
 		
 	}
 
-	var container = document.querySelector('#siteTable');
-	var msnry = new Masonry( container, {
-	  // options
-	  itemSelector: '.thing',
-	  gutter: config.gutter ,
-	  columnWidth: getColumnWidth()
-	});
-	
-	
 	function init() {
 		applyTheme();
-		//$(window).resize(resize);
-		//resize();
-		processItems();
+		resize();
+		$(window).resize(resize);
 	}
 	
 	init();
